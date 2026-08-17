@@ -1,0 +1,38 @@
+# Python virtual environment
+myenv/
+venv/
+.venv/
+.env/
+
+# Environment files (keep local secrets out of Git)
+.env
+.env.*
+
+# Python cache / compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Jupyter temporary files (not the notebooks themselves)
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# Keep notebooks tracked so outputs can be pushed
+# Do not ignore *.ipynb
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Package/build artifacts
+*.egg-info/
+build/
+dist/
+
+# Logs and test output
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
