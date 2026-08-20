@@ -5,8 +5,7 @@ import uuid
 
 #****************************************************************** Utility Functions ********************************************************************************
 def generate_thread_id():
-    thread_id = uuid.uuid4()
-    return thread_id
+    return str(uuid.uuid4())
 
 def reset_chat():
     thread_id = generate_thread_id()
@@ -18,8 +17,13 @@ def add_thread(thread_id):
     if thread_id not in st.session_state['chat_threads']:
         st.session_state['chat_threads'].append(thread_id)
         
+#def load_conversation(thread_id):
+#    return chatbot.get_state(config={'configurable': {'thread_id': thread_id}}).values['messages']
 def load_conversation(thread_id):
-    return chatbot.get_state(config={'configurable': {'thread_id': thread_id}}).values['messages']
+    state = chatbot.get_state(
+        config={'configurable': {'thread_id': thread_id}}
+    )
+    return state.values.get('messages', [])
 
 #****************************************************************** Session Setup ********************************************************************************
 if 'message_history' not in st.session_state:
@@ -41,7 +45,7 @@ if st.sidebar.button('New Chat'):
 
 st.sidebar.header('My Conversation History')
 
-for thread_id in st.session_state['chat_threads']:
+for thread_id in st.session_state['chat_threads'][::-1]:
     if st.sidebar.button(str(thread_id)):
         st.session_state['thread_id'] = thread_id
         messages = load_conversation(thread_id)
